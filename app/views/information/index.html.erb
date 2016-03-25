@@ -1,0 +1,17 @@
+<div class="panel panel-default devise-bs">
+  <div class="panel-heading">
+    <h4>災情訊息 <%= paginate @articles %></h4>
+  </div>
+</div>
+<% @articles.each do |a| %>
+    <div class="panel panel-default devise-bs">
+      <div class="panel-body">
+        <div class="form-group">
+          <h4>
+            <%= link_to '['+a.article_type.name+']  ' + a.title, article_path(a) %>
+            <small>(<%= a.updated_at %>)</small>
+          </h4>
+        </div>
+      </div>
+    </div>
+<% end %>

@@ -1,0 +1,12 @@
+<div class="panel panel-default devise-bs">
+  <div class="panel-heading">
+    <h4>[<%= @article.article_type.name %>] <%=@article.title %></h4>
+  </div>
+  <div class="panel-body">
+    <div class="form-group">
+      <h4><%= @article.content %></h4>
+      <small>by <%= @article.user.email %> (<%= @article.updated_at %>)</small>
+    </div>
+  </div>
+</div>
+
