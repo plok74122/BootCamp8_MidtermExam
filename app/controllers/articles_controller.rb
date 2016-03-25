@@ -21,7 +21,8 @@ class ArticlesController < ApplicationController
   end
 
   def show
-
+    @comment = Comment.new
+    @comment_list = @article.comments.order('updated_at DESC')
   end
 
   private
