@@ -39,6 +39,23 @@ class ArticlesController < ApplicationController
     redirect_to :back
   end
 
+  def edit
+    @all_article_type_collection = ArticleType.all
+
+    if(@article.user_id != current_user.id)
+      flash[:notice] = "can't access"
+      redirect_to :back
+    end
+  end
+  def update
+    if(@article.user_id != current_user.id)
+      flash[:notice] = "can't Update This Article"
+      redirect_to articles_path
+    else
+      @article.update(article_params)
+      redirect_to articles_path
+    end
+  end
 
   private
 
