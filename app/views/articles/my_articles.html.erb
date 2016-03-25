@@ -1,0 +1,23 @@
+<div class="panel panel-default devise-bs">
+  <div class="panel-heading">
+    <h4>我的訊息 <%= paginate @articles %></h4>
+  </div>
+  <% @articles.each do |a| %>
+      <div class="panel-body">
+        <div class="form-group">
+          <h4>[<%= a.article_type.name %>] <%= a.title %></h4>
+          <h5><%= a.content %></h5>
+          <small>(<%= a.updated_at %>)</small>
+        </div>
+        <%= form_for a, :url => article_path(a), :method => 'DELETE' do |f| %>
+            <%= f.hidden_field :id%>
+            <%= f.submit t('.sign_up', :default => "刪除文章"), class: "btn btn-danger" , data: { confirm: '確定刪除此篇訊息？' } %>
+        <% end %>
+        <%= form_for a, :url => edit_article_path(a), :method => 'GET' do |f| %>
+            <%= f.hidden_field :id%>
+            <%= f.submit t('.sign_up', :default => "修改文章"), class: "btn btn-primary" %>
+        <% end %>
+
+      </div>
+  <% end %>
+</div>

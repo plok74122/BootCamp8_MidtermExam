@@ -16,6 +16,12 @@
     <% @comment_list.each do |comment| %>
         <h4><%= comment.content %></h4>
         <small> by <%= comment.user.email %>(<%= comment.updated_at %>)</small> <br>
+        <% if comment.user_id == current_user.id%>
+            <%= form_for comment, :url => comment_path(comment), :method => 'DELETE' do |f| %>
+                <%= f.hidden_field :id%>
+                <%= f.submit t('.sign_up', :default => "刪除留言"), class: "btn btn-danger" , data: { confirm: '確定刪除此篇留言？' } %>
+            <% end %>
+        <% end %>
     <% end %>
   </div>
 </div>

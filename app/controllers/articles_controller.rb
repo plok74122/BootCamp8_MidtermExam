@@ -1,8 +1,8 @@
 class ArticlesController < ApplicationController
   before_action :authenticate_user!
   before_action :article_params , :only =>[:create , :update]
-  before_action :article_id_params , :only =>[:edit ,:update ,:show]
-  before_action :set_article, :only => [:show, :edit, :update]
+  before_action :article_id_params , :only =>[:edit ,:update ,:show ,:destroy]
+  before_action :set_article, :only => [:show, :edit, :update ,:destroy]
 
   def index
     @articles =Article.all
@@ -11,6 +11,10 @@ class ArticlesController < ApplicationController
   def new
     @articles = Article.new
     @all_article_type_collection = ArticleType.all
+  end
+
+  def my_articles
+    @articles = Article.where('user_id' =>current_user.id).page(params[:page]).per(5)
   end
 
   def create
@@ -24,6 +28,17 @@ class ArticlesController < ApplicationController
     @comment = Comment.new
     @comment_list = @article.comments.order('updated_at DESC')
   end
+
+  def destroy
+    if @article.user_id == current_user.id
+      @article.delete
+      flash[:notice] ='已刪除留言'
+    else
+      flash[:notice] ='不能刪除他人的留言'
+    end
+    redirect_to :back
+  end
+
 
   private
 

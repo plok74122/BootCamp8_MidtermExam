@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
+  get 'articles/myarticles' =>'articles#my_articles'
+
   resources :articles
   resources :comments
   root :to => "information#index"
